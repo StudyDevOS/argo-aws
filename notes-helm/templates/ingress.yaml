@@ -17,7 +17,7 @@ spec:
   #     - peter.dev-sas.itsec.md
   #   secretName: "peter-secret"
   rules:
-  - host: peter.dev-sas.itsec.md
+  - host: petru.dev-sas.itsec.md
     http:
       paths:
       - path: /
