@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-peter-ingress
+  namespace: peter
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: / 
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/affinity-mode: "persistent"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    kubernetes.io/ingress.class: "nginx"
+    # cert-manager.io/cluster-issuer:
+spec:
+  # tls:
+  # - hosts:
+  #     - peter.dev-sas.itsec.md
+  #   secretName: "peter-secret"
+  rules:
+  - host: peter.dev-sas.itsec.md
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service-peter
+            port:
+              number: 80
